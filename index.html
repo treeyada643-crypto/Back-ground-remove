@@ -5,18 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101828">
-  <meta name="description" content="HMQ Background Remover से फोटो का बैकग्राउंड हटाएँ और transparent PNG मुफ्त में डाउनलोड करें।">
-  <title>HMQ Background Remover — Free AI Tool</title>
+  <meta name="description" content="HMQ Background Remover से फोटो का बैकग्राउंड हटाएँ, रंग या अपनी फोटो लगाएँ और PNG/JPG डाउनलोड करें।">
+  <title>HMQ Background Remover | HMQ Tools</title>
 
   <style>
     :root {
-      --bg: #f5f7fc;
+      --bg: #f4f6fc;
       --card: #ffffff;
       --ink: #172033;
       --muted: #667085;
       --blue: #4f46e5;
-      --blue-dark: #3730a3;
-      --border: #e5e9f2;
+      --border: #e4e7ec;
       --green: #067647;
     }
 
@@ -24,255 +23,236 @@
 
     body {
       margin: 0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI",
-                   Roboto, Arial, sans-serif;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
       background: var(--bg);
       color: var(--ink);
-      min-height: 100vh;
     }
 
     button, input { font: inherit; }
 
     button { cursor: pointer; }
 
-    .navbar {
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    header {
       background: #101828;
       color: white;
-      padding: 16px 5%;
+      padding: 15px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
       font-weight: 800;
       font-size: 20px;
-      letter-spacing: -.5px;
     }
 
-    .brand-icon {
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #818cf8, #4f46e5);
-      font-size: 20px;
-    }
+    .brand span { color: #a5b4fc; }
 
     .free-tag {
       border: 1px solid #475467;
       border-radius: 30px;
       padding: 7px 12px;
       font-size: 12px;
-      color: #d0d5dd;
     }
 
     main {
-      width: min(1100px, 92%);
-      margin: 0 auto;
-      padding: 48px 0 60px;
+      width: min(1000px, 92%);
+      margin: auto;
+      padding: 38px 0 55px;
     }
 
     .hero {
       text-align: center;
-      margin-bottom: 34px;
+      margin-bottom: 28px;
     }
 
     .eyebrow {
       display: inline-block;
+      color: #3730a3;
       background: #eef2ff;
-      color: var(--blue-dark);
       border: 1px solid #e0e7ff;
       border-radius: 30px;
-      padding: 7px 13px;
+      padding: 7px 12px;
       font-size: 13px;
       font-weight: 700;
     }
 
     h1 {
-      margin: 18px 0 12px;
-      font-size: clamp(32px, 5vw, 52px);
-      line-height: 1.12;
-      letter-spacing: -1.8px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin: 17px 0 12px;
     }
 
     h1 span { color: var(--blue); }
 
     .hero p {
+      max-width: 620px;
+      margin: auto;
       color: var(--muted);
       line-height: 1.8;
-      max-width: 610px;
-      margin: 0 auto;
-      font-size: 16px;
     }
 
     .workspace {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: clamp(18px, 4vw, 34px);
-      box-shadow: 0 12px 40px rgba(16, 24, 40, .06);
+      border-radius: 22px;
+      padding: clamp(16px, 4vw, 30px);
+      box-shadow: 0 12px 35px #1018280b;
     }
 
-    .upload-area {
-      border: 2px dashed #c7d2fe;
-      background: #f8faff;
-      border-radius: 18px;
-      padding: 32px 15px;
+    .upload {
       text-align: center;
+      padding: 27px 15px;
+      border: 2px dashed #c7d2fe;
+      border-radius: 16px;
+      background: #f8faff;
       transition: .2s;
     }
 
-    .upload-area.dragging {
+    .upload.dragging {
       border-color: var(--blue);
       background: #eef2ff;
     }
 
-    .upload-icon {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
+    .upload-icon { font-size: 38px; }
 
-    .upload-area h2 {
+    .upload h2 {
       font-size: 19px;
-      margin: 5px 0 8px;
+      margin: 8px 0;
     }
 
-    .upload-area p {
+    .muted {
       color: var(--muted);
-      margin: 0 0 18px;
-      font-size: 14px;
+      font-size: 13px;
+      line-height: 1.7;
     }
 
     .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-weight: 700;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      gap: 8px;
-      border: 0;
-      border-radius: 11px;
-      padding: 13px 19px;
-      font-weight: 700;
-      transition: .2s;
+      gap: 7px;
       text-decoration: none;
     }
 
-    .btn-primary {
+    .primary {
       background: var(--blue);
       color: white;
-      box-shadow: 0 5px 14px rgba(79, 70, 229, .2);
     }
 
-    .btn-primary:hover:not(:disabled) {
-      background: var(--blue-dark);
-      transform: translateY(-1px);
-    }
+    .primary:hover:not(:disabled) { background: #3730a3; }
 
-    .btn-secondary {
+    .secondary {
+      color: #3730a3;
       background: #eef2ff;
-      color: var(--blue-dark);
     }
 
-    .btn-outline {
-      border: 1px solid var(--border);
-      background: white;
+    .outline {
       color: var(--ink);
+      background: white;
+      border: 1px solid var(--border);
     }
 
-    button:disabled {
-      opacity: .55;
-      cursor: not-allowed;
-      transform: none;
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
     }
 
-    .hint {
-      margin-top: 13px;
-      color: var(--muted);
-      font-size: 12px;
-    }
+    .actions .btn { flex: 1; }
 
     .status {
-      margin: 20px 0 0;
+      color: #3730a3;
       text-align: center;
       font-size: 14px;
-      line-height: 1.6;
-      color: var(--blue-dark);
+      line-height: 1.7;
       overflow-wrap: anywhere;
+      margin: 18px 0 0;
     }
 
-    .progress-track {
+    .progress {
+      display: none;
       height: 6px;
-      background: #e9ecf5;
+      background: #e4e7ec;
       border-radius: 20px;
       overflow: hidden;
-      margin: 12px auto 0;
       max-width: 420px;
-      display: none;
+      margin: 12px auto 0;
     }
 
-    .progress-bar {
+    .progress div {
       height: 100%;
-      width: 35%;
-      border-radius: 20px;
-      background: linear-gradient(90deg, #818cf8, #4f46e5);
-      animation: progress 1.5s ease-in-out infinite alternate;
+      width: 30%;
+      background: var(--blue);
+      animation: move 1.5s ease-in-out infinite alternate;
     }
 
-    @keyframes progress {
-      from { width: 15%; }
+    @keyframes move {
       to { width: 95%; }
+    }
+
+    .section-title {
+      font-size: 18px;
+      margin: 28px 0 14px;
     }
 
     .preview-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 28px;
+      gap: 15px;
     }
 
     .preview-card {
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 15px;
       overflow: hidden;
       min-width: 0;
     }
 
-    .preview-title {
-      padding: 13px 15px;
+    .preview-heading {
+      padding: 12px 14px;
       font-weight: 700;
       font-size: 14px;
       border-bottom: 1px solid var(--border);
       display: flex;
-      align-items: center;
       justify-content: space-between;
       gap: 8px;
     }
 
     .pill {
-      font-size: 11px;
       background: #f2f4f7;
       color: #475467;
-      padding: 5px 8px;
       border-radius: 20px;
+      padding: 4px 8px;
+      font-size: 11px;
+      white-space: nowrap;
     }
 
     .pill.success {
-      color: var(--green);
       background: #ecfdf3;
+      color: var(--green);
     }
 
-    .preview-image {
-      min-height: 220px;
+    .preview-area {
+      min-height: 240px;
       height: 290px;
+      padding: 10px;
       display: grid;
       place-items: center;
-      padding: 12px;
       background-color: #f8fafc;
       background-image:
         linear-gradient(45deg, #e5e7eb 25%, transparent 25%),
@@ -283,266 +263,403 @@
       background-position: 0 0, 0 10px, 10px -10px, -10px 0;
     }
 
-    .preview-image img {
+    .preview-area img {
       max-width: 100%;
       max-height: 265px;
       object-fit: contain;
-      display: block;
     }
 
-    .empty-preview {
+    .empty {
+      padding: 20px;
       text-align: center;
       color: #98a2b3;
       font-size: 13px;
-      padding: 20px;
     }
 
-    .result-actions {
+    .editor {
+      margin-top: 25px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #fcfcfd;
+    }
+
+    .editor h3 { margin: 0 0 7px; }
+
+    .color-list {
       display: flex;
+      gap: 11px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 15px 0;
+    }
+
+    .swatch {
+      width: 37px;
+      height: 37px;
+      border-radius: 50%;
+      border: 2px solid white;
+      outline: 1px solid #d0d5dd;
+      padding: 0;
+    }
+
+    .swatch.active {
+      outline: 3px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    .custom-color {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    input[type="color"] {
+      width: 42px;
+      height: 38px;
+      padding: 3px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .background-upload {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .background-upload input[type="file"] {
+      width: 100%;
+      margin: 10px 0;
+      font-size: 13px;
+    }
+
+    .format-row {
+      display: flex;
+      align-items: center;
       gap: 10px;
       flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 22px;
+      margin-top: 18px;
     }
 
-    .result-actions .btn { flex: 1; }
+    select {
+      padding: 11px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: white;
+    }
 
-    .features {
+    .download-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .download-actions .btn { width: 100%; }
+
+    .feature-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 28px;
+      gap: 14px;
+      margin-top: 25px;
     }
 
     .feature {
-      background: white;
+      padding: 18px;
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
+      background: white;
+      border-radius: 15px;
     }
 
-    .feature-icon { font-size: 25px; }
+    .feature .icon { font-size: 24px; }
 
     .feature h3 {
-      font-size: 15px;
-      margin: 12px 0 7px;
+      font-size: 14px;
+      margin: 10px 0 6px;
     }
 
     .feature p {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.7;
       margin: 0;
     }
 
-    .privacy-note {
-      text-align: center;
-      margin: 24px auto 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.7;
-      max-width: 680px;
-    }
-
     footer {
       text-align: center;
-      padding: 24px 15px;
-      border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 13px;
+      padding: 23px 12px;
+      border-top: 1px solid var(--border);
     }
-
-    footer strong { color: var(--ink); }
 
     [hidden] { display: none !important; }
 
     @media (max-width: 650px) {
-      main { padding-top: 32px; }
-      .navbar { padding: 12px 4%; }
-      .brand { font-size: 17px; }
-      .brand-icon { width: 36px; height: 36px; }
+      main { padding-top: 27px; }
       .preview-grid { grid-template-columns: 1fr; }
-      .preview-image { height: 260px; }
-      .features { grid-template-columns: 1fr; }
-      .result-actions { flex-direction: column; }
-      .result-actions .btn { width: 100%; }
-      h1 { letter-spacing: -1px; }
+      .preview-area { height: 255px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .actions { flex-direction: column; }
+      .actions .btn { width: 100%; }
+      .download-actions { grid-template-columns: 1fr; }
+      .format-row { align-items: stretch; }
     }
   </style>
 </head>
 
 <body>
-  <header class="navbar">
-    <div class="brand">
-      <div class="brand-icon">✂</div>
-      <span>HMQ <span style="color:#a5b4fc">Tools</span></span>
-    </div>
-    <div class="free-tag">✦ FREE AI TOOL</div>
+  <header>
+    <div class="brand">✂ HMQ <span>Tools</span></div>
+    <div class="free-tag">✦ FREE PHOTO EDITOR</div>
   </header>
 
   <main>
     <section class="hero">
       <div class="eyebrow">✨ स्मार्ट फोटो एडिटिंग</div>
-      <h1>फोटो का बैकग्राउंड<br><span>सेकंडों में हटाएँ</span></h1>
+      <h1>बैकग्राउंड हटाएँ,<br><span>अपनी स्टाइल बनाएँ</span></h1>
       <p>
-        अपनी फोटो अपलोड करें और पारदर्शी बैकग्राउंड वाली PNG इमेज बनाएँ।
-        आसान, तेज़ और इस्तेमाल करने में सरल।
+        फोटो का बैकग्राउंड हटाएँ, मनपसंद रंग या अपनी दूसरी फोटो लगाएँ,
+        फिर तैयार इमेज डाउनलोड करें।
       </p>
     </section>
 
     <section class="workspace">
-      <div class="upload-area" id="dropArea">
+      <div class="upload" id="dropArea">
         <div class="upload-icon">🖼️</div>
-        <h2>अपनी फोटो यहाँ चुनें</h2>
-        <p>फोटो चुनने के लिए नीचे बटन दबाएँ या यहाँ ड्रैग करें।</p>
-
-        <input
-          type="file"
-          id="photo"
-          accept="image/png,image/jpeg,image/webp"
-          hidden
-        >
-
-        <button class="btn btn-primary" id="chooseBtn" type="button">
+        <h2>अपनी मुख्य फोटो चुनें</h2>
+        <p class="muted">JPG, PNG या WebP • अधिकतम 15 MB</p>
+        <input type="file" id="photoInput"
+               accept="image/jpeg,image/png,image/webp" hidden>
+        <button class="btn primary" id="chooseBtn" type="button">
           📁 फोटो चुनें
         </button>
-
-        <div class="hint">JPG, PNG या WebP • छोटी फोटो से शुरुआत करें</div>
       </div>
 
-      <div class="result-actions">
-        <button class="btn btn-primary" id="removeBtn" type="button" disabled>
-          ✨ बैकग्राउंड हटाएँ
+      <div class="actions">
+        <button class="btn primary" id="removeBtn" type="button" disabled>
+          ✨ AI से बैकग्राउंड हटाएँ
         </button>
-        <button class="btn btn-outline" id="resetBtn" type="button">
-          ↻ रीसेट करें
+        <button class="btn outline" id="resetBtn" type="button">
+          ↻ रीसेट
         </button>
       </div>
 
       <p class="status" id="status" role="status" aria-live="polite">
-        शुरू करने के लिए पहले फोटो चुनें।
+        पहले अपनी फोटो चुनें।
       </p>
-
-      <div class="progress-track" id="progressTrack" aria-hidden="true">
-        <div class="progress-bar"></div>
+      <div class="progress" id="progress">
+        <div></div>
       </div>
 
-      <section class="preview-grid" aria-label="फोटो प्रीव्यू">
+      <h2 class="section-title">फोटो प्रीव्यू</h2>
+      <div class="preview-grid">
         <div class="preview-card">
-          <div class="preview-title">
-            <span>मूल फोटो</span>
-            <span class="pill">Before</span>
+          <div class="preview-heading">
+            <span>मूल फोटो</span><span class="pill">BEFORE</span>
           </div>
-          <div class="preview-image">
-            <div class="empty-preview" id="originalEmpty">
-              आपकी चुनी हुई फोटो यहाँ दिखेगी।
-            </div>
-            <img id="originalImage" alt="मूल फोटो" hidden>
+          <div class="preview-area">
+            <div class="empty" id="originalEmpty">आपकी फोटो यहाँ दिखेगी।</div>
+            <img id="originalImg" alt="मूल फोटो" hidden>
           </div>
         </div>
 
         <div class="preview-card">
-          <div class="preview-title">
-            <span>बिना बैकग्राउंड</span>
-            <span class="pill success">After</span>
+          <div class="preview-heading">
+            <span>अंतिम परिणाम</span><span class="pill success">AFTER</span>
           </div>
-          <div class="preview-image">
-            <div class="empty-preview" id="resultEmpty">
-              परिणाम यहाँ दिखाई देगा।
+          <div class="preview-area" id="finalPreviewArea">
+            <div class="empty" id="resultEmpty">
+              बैकग्राउंड हटाने के बाद परिणाम यहाँ दिखेगा।
             </div>
-            <img id="resultImage" alt="बिना बैकग्राउंड वाली फोटो" hidden>
+            <img id="finalImg" alt="बैकग्राउंड बदली हुई फोटो" hidden>
           </div>
         </div>
+      </div>
+
+      <section class="editor">
+        <h3>🎨 बैकग्राउंड कस्टमाइज़ करें</h3>
+        <p class="muted">
+          पहले AI से बैकग्राउंड हटाएँ। उसके बाद रंग या अपनी दूसरी फोटो चुनें।
+        </p>
+
+        <div class="color-list" id="colorList">
+          <button class="swatch active" type="button"
+                  data-color="#ffffff" style="background:#ffffff"
+                  aria-label="सफ़ेद रंग"></button>
+          <button class="swatch" type="button"
+                  data-color="#000000" style="background:#000000"
+                  aria-label="काला रंग"></button>
+          <button class="swatch" type="button"
+                  data-color="#2563eb" style="background:#2563eb"
+                  aria-label="नीला रंग"></button>
+          <button class="swatch" type="button"
+                  data-color="#16a34a" style="background:#16a34a"
+                  aria-label="हरा रंग"></button>
+          <button class="swatch" type="button"
+                  data-color="#facc15" style="background:#facc15"
+                  aria-label="पीला रंग"></button>
+          <button class="swatch" type="button"
+                  data-color="#f9a8d4" style="background:#f9a8d4"
+                  aria-label="गुलाबी रंग"></button>
+
+          <label class="custom-color">
+            अपना रंग
+            <input type="color" id="customColor" value="#ffffff">
+          </label>
+        </div>
+
+        <div class="background-upload">
+          <strong>🖼️ अपनी फोटो को बैकग्राउंड बनाएँ</strong>
+          <p class="muted">
+            दूसरी फोटो चुनें। वह बैकग्राउंड में फिट होगी और आपकी मुख्य
+            फोटो उसके ऊपर दिखाई देगी।
+          </p>
+          <input type="file" id="backgroundInput"
+                 accept="image/jpeg,image/png,image/webp">
+          <button class="btn secondary" id="useColorBtn" type="button">
+            🎨 रंग वाला बैकग्राउंड इस्तेमाल करें
+          </button>
+        </div>
+
+        <div class="format-row">
+          <label for="format"><strong>डाउनलोड फ़ॉर्मेट:</strong></label>
+          <select id="format">
+            <option value="png">PNG — अच्छी क्वालिटी</option>
+            <option value="jpeg">JPG — छोटी फ़ाइल</option>
+          </select>
+        </div>
+
+        <div class="download-actions">
+          <button class="btn primary" id="downloadBtn" type="button" disabled>
+            ⬇ तैयार फोटो डाउनलोड करें
+          </button>
+          <button class="btn outline" id="transparentBtn" type="button" disabled>
+            ⬇ पारदर्शी PNG डाउनलोड करें
+          </button>
+        </div>
+        <p class="muted">
+          JPG में पारदर्शिता नहीं होती; JPG डाउनलोड करने पर पारदर्शी हिस्सा
+          सफ़ेद हो जाएगा। पारदर्शी PNG के लिए अलग बटन इस्तेमाल करें।
+        </p>
       </section>
-
-      <div class="result-actions" id="downloadActions" hidden>
-        <a class="btn btn-primary" id="downloadBtn" href="#" download="hmq-background-removed.png">
-          ⬇ PNG डाउनलोड करें
-        </a>
-      </div>
     </section>
 
-    <section class="features">
+    <section class="feature-grid">
       <article class="feature">
-        <div class="feature-icon">⚡</div>
-        <h3>आसान प्रक्रिया</h3>
-        <p>फोटो चुनें, बैकग्राउंड हटाएँ और अपना परिणाम डाउनलोड करें।</p>
+        <div class="icon">⚡</div>
+        <h3>AI बैकग्राउंड रिमूवर</h3>
+        <p>अपनी फोटो से बैकग्राउंड हटाने की कोशिश करें।</p>
       </article>
       <article class="feature">
-        <div class="feature-icon">🧩</div>
-        <h3>Transparent PNG</h3>
-        <p>परिणाम PNG फ़ॉर्मेट में सेव करें, ताकि पारदर्शी बैकग्राउंड बना रहे।</p>
+        <div class="icon">🎨</div>
+        <h3>अपनी पसंद का रंग</h3>
+        <p>रंगों में से चुनें या अपना मनपसंद रंग सेट करें।</p>
       </article>
       <article class="feature">
-        <div class="feature-icon">📱</div>
-        <h3>हर स्क्रीन पर</h3>
-        <p>मोबाइल, टैबलेट और कंप्यूटर पर इस्तेमाल करने के लिए बनाया गया डिज़ाइन।</p>
+        <div class="icon">📥</div>
+        <h3>PNG और JPG</h3>
+        <p>अपनी ज़रूरत के हिसाब से तैयार फोटो डाउनलोड करें।</p>
       </article>
     </section>
 
-    <p class="privacy-note">
-      नोट: AI मॉडल पहली बार लोड होने में समय लग सकता है और इंटरनेट आवश्यक है।
-      फोटो प्रोसेसिंग के दौरान आपका ब्राउज़र इस्तेमाल होता है; यह वेबसाइट
-      किसी सर्वर पर फोटो अपलोड करने का कोड नहीं चलाती।
+    <p class="muted" style="text-align:center;margin-top:22px">
+      AI मॉडल पहली बार लोड होने में समय लग सकता है। इंटरनेट आवश्यक है।
+      फोटो प्रोसेसिंग आपके ब्राउज़र में की जाती है; इस कोड में फोटो अपलोड
+      करके किसी सर्वर पर भेजने की सुविधा नहीं है।
     </p>
   </main>
 
   <footer>
-    © <span id="year"></span> <strong>HMQ Tools</strong> · बनाया गया सीखने और
-    फोटो एडिटिंग के लिए
+    © <span id="year"></span> HMQ Tools · Photo editing made simple
   </footer>
 
   <script type="module">
-    const photoInput = document.getElementById("photo");
-    const chooseBtn = document.getElementById("chooseBtn");
-    const removeBtn = document.getElementById("removeBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const dropArea = document.getElementById("dropArea");
-    const statusText = document.getElementById("status");
-    const progressTrack = document.getElementById("progressTrack");
+    const $ = id => document.getElementById(id);
 
-    const originalImage = document.getElementById("originalImage");
-    const originalEmpty = document.getElementById("originalEmpty");
-    const resultImage = document.getElementById("resultImage");
-    const resultEmpty = document.getElementById("resultEmpty");
-    const downloadActions = document.getElementById("downloadActions");
-    const downloadBtn = document.getElementById("downloadBtn");
+    const photoInput = $("photoInput");
+    const backgroundInput = $("backgroundInput");
+    const chooseBtn = $("chooseBtn");
+    const removeBtn = $("removeBtn");
+    const resetBtn = $("resetBtn");
+    const statusText = $("status");
+    const progress = $("progress");
+    const originalImg = $("originalImg");
+    const originalEmpty = $("originalEmpty");
+    const finalImg = $("finalImg");
+    const resultEmpty = $("resultEmpty");
+    const downloadBtn = $("downloadBtn");
+    const transparentBtn = $("transparentBtn");
+    const formatSelect = $("format");
+    const customColor = $("customColor");
+    const dropArea = $("dropArea");
 
     let selectedFile = null;
     let originalUrl = null;
-    let resultUrl = null;
+    let cutoutUrl = null;
+    let backgroundUrl = null;
+    let cutoutImage = null;
+    let backgroundImage = null;
+    let currentColor = "#ffffff";
     let isProcessing = false;
+    let isRendering = false;
+    let renderVersion = 0;
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    $("year").textContent = new Date().getFullYear();
 
     function setStatus(message, busy = false) {
       statusText.textContent = message;
-      progressTrack.style.display = busy ? "block" : "none";
+      progress.style.display = busy ? "block" : "none";
     }
 
     function releaseUrl(url) {
       if (url) URL.revokeObjectURL(url);
     }
 
-    function clearResult() {
-      releaseUrl(resultUrl);
-      resultUrl = null;
-      resultImage.removeAttribute("src");
-      resultImage.hidden = true;
-      resultEmpty.hidden = false;
-      downloadActions.hidden = true;
+    function validImage(file) {
+      return file &&
+        ["image/jpeg", "image/png", "image/webp"].includes(file.type);
     }
 
-    function showSelectedFile(file) {
-      if (!file) return;
+    function loadImage(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("Image could not be loaded"));
+        img.src = url;
+      });
+    }
 
-      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-        setStatus("कृपया JPG, PNG या WebP फोटो चुनें।");
+    function resetResult() {
+      renderVersion++;
+      releaseUrl(cutoutUrl);
+      cutoutUrl = null;
+      cutoutImage = null;
+      backgroundImage = null;
+      releaseUrl(backgroundUrl);
+      backgroundUrl = null;
+
+      finalImg.removeAttribute("src");
+      finalImg.hidden = true;
+      resultEmpty.hidden = false;
+      downloadBtn.disabled = true;
+      transparentBtn.disabled = true;
+      backgroundInput.value = "";
+    }
+
+    function selectMainPhoto(file) {
+      if (!validImage(file)) {
+        setStatus("कृपया JPG, PNG या WebP फ़ोटो चुनें।");
         return;
       }
 
       if (file.size > 15 * 1024 * 1024) {
-        setStatus("फोटो 15 MB से छोटी चुनें।");
+        setStatus("कृपया 15 MB से छोटी फ़ोटो चुनें।");
         return;
       }
 
@@ -550,19 +667,19 @@
       releaseUrl(originalUrl);
       originalUrl = URL.createObjectURL(file);
 
-      originalImage.src = originalUrl;
-      originalImage.hidden = false;
+      originalImg.src = originalUrl;
+      originalImg.hidden = false;
       originalEmpty.hidden = true;
 
-      clearResult();
+      resetResult();
       removeBtn.disabled = false;
-      setStatus("फोटो तैयार है। अब “बैकग्राउंड हटाएँ” दबाएँ।");
+      setStatus("फोटो तैयार है। अब AI से बैकग्राउंड हटाएँ।");
     }
 
     chooseBtn.addEventListener("click", () => photoInput.click());
 
     photoInput.addEventListener("change", () => {
-      showSelectedFile(photoInput.files[0]);
+      selectMainPhoto(photoInput.files[0]);
     });
 
     for (const eventName of ["dragenter", "dragover"]) {
@@ -581,8 +698,87 @@
 
     dropArea.addEventListener("drop", event => {
       const file = event.dataTransfer.files[0];
-      if (file) showSelectedFile(file);
+      if (file) selectMainPhoto(file);
     });
+
+    async function drawComposition() {
+      if (!cutoutImage || isRendering) return;
+      isRendering = true;
+      const version = renderVersion;
+
+      try {
+        const width = cutoutImage.naturalWidth;
+        const height = cutoutImage.naturalHeight;
+
+        if (!width || !height) throw new Error("Invalid image dimensions");
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+
+        if (!ctx) throw new Error("Canvas is not supported");
+
+        if (backgroundImage) {
+          // Fill the canvas with a cover-cropped background photo.
+          const scale = Math.max(
+            width / backgroundImage.naturalWidth,
+            height / backgroundImage.naturalHeight
+          );
+
+          const drawWidth = backgroundImage.naturalWidth * scale;
+          const drawHeight = backgroundImage.naturalHeight * scale;
+          const x = (width - drawWidth) / 2;
+          const y = (height - drawHeight) / 2;
+
+          ctx.drawImage(backgroundImage, x, y, drawWidth, drawHeight);
+        } else {
+          ctx.fillStyle = currentColor;
+          ctx.fillRect(0, 0, width, height);
+        }
+
+        // Draw the transparent foreground over the selected background.
+        ctx.drawImage(cutoutImage, 0, 0, width, height);
+
+        const mime = "image/png";
+        const blob = await new Promise((resolve, reject) => {
+          canvas.toBlob(result => {
+            if (result) resolve(result);
+            else reject(new Error("Could not create output image"));
+          }, mime);
+        });
+
+        if (version !== renderVersion) return;
+
+        const newUrl = URL.createObjectURL(blob);
+        releaseUrl(backgroundUrlForPreview);
+        backgroundUrlForPreview = newUrl;
+
+        finalImg.src = newUrl;
+        finalImg.hidden = false;
+        resultEmpty.hidden = true;
+        downloadBtn.disabled = false;
+        transparentBtn.disabled = false;
+        setStatus("बैकग्राउंड तैयार है! अब PNG या JPG डाउनलोड कर सकते हैं।");
+      } catch (error) {
+        console.error(error);
+        setStatus("इमेज तैयार नहीं हो पाई। दूसरी फोटो से कोशिश करें।");
+      } finally {
+        isRendering = false;
+      }
+    }
+
+    // Preview URL is separate from the uploaded background URL.
+    let backgroundUrlForPreview = null;
+
+    async function applySelectedBackground() {
+      if (!cutoutImage) {
+        setStatus("पहले AI से मुख्य फोटो का बैकग्राउंड हटाएँ।");
+        return;
+      }
+      renderVersion++;
+      await drawComposition();
+    }
 
     removeBtn.addEventListener("click", async () => {
       if (!selectedFile || isProcessing) return;
@@ -591,63 +787,238 @@
       removeBtn.disabled = true;
       chooseBtn.disabled = true;
       resetBtn.disabled = true;
-      clearResult();
+      setStatus("AI मॉडल लोड हो रहा है। पहली बार समय लग सकता है...", true);
 
       try {
-        setStatus("AI मॉडल लोड हो रहा है। पहली बार थोड़ा समय लग सकता है...", true);
-
         const { removeBackground } = await import(
           "https://esm.sh/@imgly/background-removal@1.5.5"
         );
 
-        setStatus("बैकग्राउंड हटाया जा रहा है। कृपया इंतज़ार करें...", true);
+        setStatus("AI आपकी फोटो का बैकग्राउंड हटा रहा है...", true);
 
         const blob = await removeBackground(selectedFile);
-        resultUrl = URL.createObjectURL(blob);
+        const newCutoutUrl = URL.createObjectURL(blob);
+        const newCutoutImage = await loadImage(newCutoutUrl);
 
-        resultImage.src = resultUrl;
-        resultImage.hidden = false;
-        resultEmpty.hidden = true;
+        releaseUrl(cutoutUrl);
+        cutoutUrl = newCutoutUrl;
+        cutoutImage = newCutoutImage;
 
-        downloadBtn.href = resultUrl;
-        downloadActions.hidden = false;
+        backgroundImage = null;
+        releaseUrl(backgroundUrl);
+        backgroundUrl = null;
+        backgroundInput.value = "";
 
-        setStatus("हो गया! आपकी फोटो तैयार है। PNG डाउनलोड कर सकते हैं।");
+        await applySelectedBackground();
       } catch (error) {
-        console.error("Background removal failed:", error);
+        console.error("Background removal error:", error);
         setStatus(
-          "फोटो प्रोसेस नहीं हो पाई। इंटरनेट जाँचें, पेज रीफ़्रेश करें और छोटी फोटो से दोबारा कोशिश करें।"
+          "बैकग्राउंड नहीं हट पाया। इंटरनेट जाँचें, पेज रीफ़्रेश करें और छोटी फोटो से कोशिश करें।"
         );
       } finally {
         isProcessing = false;
-        removeBtn.disabled = !selectedFile;
         chooseBtn.disabled = false;
         resetBtn.disabled = false;
-        progressTrack.style.display = "none";
+        removeBtn.disabled = !selectedFile;
+        progress.style.display = "none";
       }
     });
+
+    document.querySelectorAll(".swatch").forEach(button => {
+      button.addEventListener("click", async () => {
+        currentColor = button.dataset.color;
+        customColor.value = currentColor;
+        backgroundImage = null;
+        releaseUrl(backgroundUrl);
+        backgroundUrl = null;
+        backgroundInput.value = "";
+
+        document.querySelectorAll(".swatch").forEach(item => {
+          item.classList.toggle("active", item === button);
+        });
+
+        await applySelectedBackground();
+      });
+    });
+
+    customColor.addEventListener("input", async () => {
+      currentColor = customColor.value;
+      backgroundImage = null;
+      releaseUrl(backgroundUrl);
+      backgroundUrl = null;
+      backgroundInput.value = "";
+
+      document.querySelectorAll(".swatch").forEach(item => {
+        item.classList.toggle(
+          "active",
+          item.dataset.color.toLowerCase() === currentColor.toLowerCase()
+        );
+      });
+
+      await applySelectedBackground();
+    });
+
+    backgroundInput.addEventListener("change", async () => {
+      const file = backgroundInput.files[0];
+      if (!file) return;
+
+      if (!validImage(file)) {
+        backgroundInput.value = "";
+        setStatus("बैकग्राउंड के लिए JPG, PNG या WebP चुनें।");
+        return;
+      }
+
+      if (file.size > 15 * 1024 * 1024) {
+        backgroundInput.value = "";
+        setStatus("बैकग्राउंड फोटो 15 MB से छोटी चुनें।");
+        return;
+      }
+
+      if (!cutoutImage) {
+        backgroundInput.value = "";
+        setStatus("पहले AI से मुख्य फोटो का बैकग्राउंड हटाएँ।");
+        return;
+      }
+
+      const newUrl = URL.createObjectURL(file);
+
+      try {
+        const img = await loadImage(newUrl);
+        releaseUrl(backgroundUrl);
+        backgroundUrl = newUrl;
+        backgroundImage = img;
+
+        document.querySelectorAll(".swatch").forEach(item => {
+          item.classList.remove("active");
+        });
+
+        await applySelectedBackground();
+      } catch (error) {
+        releaseUrl(newUrl);
+        backgroundInput.value = "";
+        setStatus("यह बैकग्राउंड फोटो खुल नहीं पाई। दूसरी फोटो चुनें।");
+      }
+    });
+
+    $("useColorBtn").addEventListener("click", async () => {
+      backgroundImage = null;
+      releaseUrl(backgroundUrl);
+      backgroundUrl = null;
+      backgroundInput.value = "";
+      await applySelectedBackground();
+    });
+
+    async function canvasBlob(canvas, mime, quality) {
+      return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+          if (blob) resolve(blob);
+          else reject(new Error("Could not export image"));
+        }, mime, quality);
+      });
+    }
+
+    async function downloadImage(transparent) {
+      if (!cutoutImage) {
+        setStatus("पहले AI से बैकग्राउंड हटाएँ।");
+        return;
+      }
+
+      try {
+        setStatus("डाउनलोड फ़ाइल तैयार हो रही है...", true);
+
+        const canvas = document.createElement("canvas");
+        canvas.width = cutoutImage.naturalWidth;
+        canvas.height = cutoutImage.naturalHeight;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) throw new Error("Canvas not supported");
+
+        if (transparent) {
+          // Draw only the cutout, preserving transparent pixels.
+          ctx.drawImage(cutoutImage, 0, 0);
+        } else {
+          if (backgroundImage) {
+            const scale = Math.max(
+              canvas.width / backgroundImage.naturalWidth,
+              canvas.height / backgroundImage.naturalHeight
+            );
+
+            const drawWidth = backgroundImage.naturalWidth * scale;
+            const drawHeight = backgroundImage.naturalHeight * scale;
+
+            ctx.drawImage(
+              backgroundImage,
+              (canvas.width - drawWidth) / 2,
+              (canvas.height - drawHeight) / 2,
+              drawWidth,
+              drawHeight
+            );
+          } else {
+            ctx.fillStyle = currentColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
+
+          ctx.drawImage(cutoutImage, 0, 0);
+        }
+
+        const format = transparent ? "png" : formatSelect.value;
+        const mime = format === "jpeg" ? "image/jpeg" : "image/png";
+        const blob = await canvasBlob(
+          canvas,
+          mime,
+          format === "jpeg" ? 0.92 : undefined
+        );
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = transparent
+          ? "hmq-transparent.png"
+          : `hmq-background.${format === "jpeg" ? "jpg" : "png"}`;
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+        setStatus(
+          transparent
+            ? "पारदर्शी PNG डाउनलोड शुरू हो गया।"
+            : `तैयार ${format.toUpperCase()} फ़ाइल डाउनलोड शुरू हो गई।`
+        );
+      } catch (error) {
+        console.error(error);
+        setStatus("डाउनलोड तैयार नहीं हो पाया। कृपया फिर से कोशिश करें।");
+      } finally {
+        progress.style.display = "none";
+      }
+    }
+
+    downloadBtn.addEventListener("click", () => downloadImage(false));
+    transparentBtn.addEventListener("click", () => downloadImage(true));
 
     resetBtn.addEventListener("click", () => {
       if (isProcessing) return;
 
       selectedFile = null;
       photoInput.value = "";
-
       releaseUrl(originalUrl);
       originalUrl = null;
-      clearResult();
+      resetResult();
 
-      originalImage.removeAttribute("src");
-      originalImage.hidden = true;
+      originalImg.removeAttribute("src");
+      originalImg.hidden = true;
       originalEmpty.hidden = false;
 
       removeBtn.disabled = true;
-      setStatus("शुरू करने के लिए पहले फोटो चुनें।");
+      setStatus("पहले अपनी मुख्य फोटो चुनें।");
     });
 
     window.addEventListener("beforeunload", () => {
       releaseUrl(originalUrl);
-      releaseUrl(resultUrl);
+      releaseUrl(cutoutUrl);
+      releaseUrl(backgroundUrl);
+      releaseUrl(backgroundUrlForPreview);
     });
   </script>
 </body>
