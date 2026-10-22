@@ -4,105 +4,650 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HMQ Background Remover</title>
+  <meta name="theme-color" content="#101828">
+  <meta name="description" content="HMQ Background Remover से फोटो का बैकग्राउंड हटाएँ और transparent PNG मुफ्त में डाउनलोड करें।">
+  <title>HMQ Background Remover — Free AI Tool</title>
+
   <style>
+    :root {
+      --bg: #f5f7fc;
+      --card: #ffffff;
+      --ink: #172033;
+      --muted: #667085;
+      --blue: #4f46e5;
+      --blue-dark: #3730a3;
+      --border: #e5e9f2;
+      --green: #067647;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f5ff;
-      text-align: center;
-      padding: 25px 12px;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI",
+                   Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
     }
-    .box {
-      max-width: 500px;
-      margin: auto;
-      padding: 25px;
-      background: white;
-      border-radius: 18px;
-    }
-    h1 { color: #155eef; }
-    input, button {
-      margin: 12px 0;
-      padding: 12px;
-      max-width: 100%;
-    }
-    button {
-      background: #155eef;
+
+    button, input { font: inherit; }
+
+    button { cursor: pointer; }
+
+    .navbar {
+      background: #101828;
       color: white;
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -.5px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #818cf8, #4f46e5);
+      font-size: 20px;
+    }
+
+    .free-tag {
+      border: 1px solid #475467;
+      border-radius: 30px;
+      padding: 7px 12px;
+      font-size: 12px;
+      color: #d0d5dd;
+    }
+
+    main {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      padding: 48px 0 60px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: #eef2ff;
+      color: var(--blue-dark);
+      border: 1px solid #e0e7ff;
+      border-radius: 30px;
+      padding: 7px 13px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.12;
+      letter-spacing: -1.8px;
+    }
+
+    h1 span { color: var(--blue); }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 610px;
+      margin: 0 auto;
+      font-size: 16px;
+    }
+
+    .workspace {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: clamp(18px, 4vw, 34px);
+      box-shadow: 0 12px 40px rgba(16, 24, 40, .06);
+    }
+
+    .upload-area {
+      border: 2px dashed #c7d2fe;
+      background: #f8faff;
+      border-radius: 18px;
+      padding: 32px 15px;
+      text-align: center;
+      transition: .2s;
+    }
+
+    .upload-area.dragging {
+      border-color: var(--blue);
+      background: #eef2ff;
+    }
+
+    .upload-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .upload-area h2 {
+      font-size: 19px;
+      margin: 5px 0 8px;
+    }
+
+    .upload-area p {
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-size: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
       border: 0;
-      border-radius: 8px;
-      cursor: pointer;
+      border-radius: 11px;
+      padding: 13px 19px;
+      font-weight: 700;
+      transition: .2s;
+      text-decoration: none;
     }
-    img {
+
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 5px 14px rgba(79, 70, 229, .2);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #eef2ff;
+      color: var(--blue-dark);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--ink);
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .hint {
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status {
+      margin: 20px 0 0;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--blue-dark);
+      overflow-wrap: anywhere;
+    }
+
+    .progress-track {
+      height: 6px;
+      background: #e9ecf5;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 12px auto 0;
+      max-width: 420px;
+      display: none;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 35%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #818cf8, #4f46e5);
+      animation: progress 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes progress {
+      from { width: 15%; }
+      to { width: 95%; }
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .preview-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .preview-title {
+      padding: 13px 15px;
+      font-weight: 700;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .pill {
+      font-size: 11px;
+      background: #f2f4f7;
+      color: #475467;
+      padding: 5px 8px;
+      border-radius: 20px;
+    }
+
+    .pill.success {
+      color: var(--green);
+      background: #ecfdf3;
+    }
+
+    .preview-image {
+      min-height: 220px;
+      height: 290px;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      background-color: #f8fafc;
+      background-image:
+        linear-gradient(45deg, #e5e7eb 25%, transparent 25%),
+        linear-gradient(-45deg, #e5e7eb 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #e5e7eb 75%),
+        linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+    }
+
+    .preview-image img {
       max-width: 100%;
-      max-height: 350px;
-      margin-top: 15px;
+      max-height: 265px;
+      object-fit: contain;
+      display: block;
     }
-    #status { color: #155eef; }
+
+    .empty-preview {
+      text-align: center;
+      color: #98a2b3;
+      font-size: 13px;
+      padding: 20px;
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 22px;
+    }
+
+    .result-actions .btn { flex: 1; }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .feature {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .feature-icon { font-size: 25px; }
+
+    .feature h3 {
+      font-size: 15px;
+      margin: 12px 0 7px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .privacy-note {
+      text-align: center;
+      margin: 24px auto 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+      max-width: 680px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 15px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer strong { color: var(--ink); }
+
+    [hidden] { display: none !important; }
+
+    @media (max-width: 650px) {
+      main { padding-top: 32px; }
+      .navbar { padding: 12px 4%; }
+      .brand { font-size: 17px; }
+      .brand-icon { width: 36px; height: 36px; }
+      .preview-grid { grid-template-columns: 1fr; }
+      .preview-image { height: 260px; }
+      .features { grid-template-columns: 1fr; }
+      .result-actions { flex-direction: column; }
+      .result-actions .btn { width: 100%; }
+      h1 { letter-spacing: -1px; }
+    }
   </style>
 </head>
+
 <body>
-  <div class="box">
-    <h1>HMQ Background Remover</h1>
-    <p>फोटो का बैकग्राउंड हटाओ — मुफ्त में!</p>
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-icon">✂</div>
+      <span>HMQ <span style="color:#a5b4fc">Tools</span></span>
+    </div>
+    <div class="free-tag">✦ FREE AI TOOL</div>
+  </header>
 
-    <input type="file" id="photo" accept="image/*">
-    <br>
-    <button id="remove">बैकग्राउंड हटाओ</button>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">✨ स्मार्ट फोटो एडिटिंग</div>
+      <h1>फोटो का बैकग्राउंड<br><span>सेकंडों में हटाएँ</span></h1>
+      <p>
+        अपनी फोटो अपलोड करें और पारदर्शी बैकग्राउंड वाली PNG इमेज बनाएँ।
+        आसान, तेज़ और इस्तेमाल करने में सरल।
+      </p>
+    </section>
 
-    <p id="status">अपनी फोटो चुनो।</p>
-    <div id="result"></div>
-  </div>
+    <section class="workspace">
+      <div class="upload-area" id="dropArea">
+        <div class="upload-icon">🖼️</div>
+        <h2>अपनी फोटो यहाँ चुनें</h2>
+        <p>फोटो चुनने के लिए नीचे बटन दबाएँ या यहाँ ड्रैग करें।</p>
+
+        <input
+          type="file"
+          id="photo"
+          accept="image/png,image/jpeg,image/webp"
+          hidden
+        >
+
+        <button class="btn btn-primary" id="chooseBtn" type="button">
+          📁 फोटो चुनें
+        </button>
+
+        <div class="hint">JPG, PNG या WebP • छोटी फोटो से शुरुआत करें</div>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn btn-primary" id="removeBtn" type="button" disabled>
+          ✨ बैकग्राउंड हटाएँ
+        </button>
+        <button class="btn btn-outline" id="resetBtn" type="button">
+          ↻ रीसेट करें
+        </button>
+      </div>
+
+      <p class="status" id="status" role="status" aria-live="polite">
+        शुरू करने के लिए पहले फोटो चुनें।
+      </p>
+
+      <div class="progress-track" id="progressTrack" aria-hidden="true">
+        <div class="progress-bar"></div>
+      </div>
+
+      <section class="preview-grid" aria-label="फोटो प्रीव्यू">
+        <div class="preview-card">
+          <div class="preview-title">
+            <span>मूल फोटो</span>
+            <span class="pill">Before</span>
+          </div>
+          <div class="preview-image">
+            <div class="empty-preview" id="originalEmpty">
+              आपकी चुनी हुई फोटो यहाँ दिखेगी।
+            </div>
+            <img id="originalImage" alt="मूल फोटो" hidden>
+          </div>
+        </div>
+
+        <div class="preview-card">
+          <div class="preview-title">
+            <span>बिना बैकग्राउंड</span>
+            <span class="pill success">After</span>
+          </div>
+          <div class="preview-image">
+            <div class="empty-preview" id="resultEmpty">
+              परिणाम यहाँ दिखाई देगा।
+            </div>
+            <img id="resultImage" alt="बिना बैकग्राउंड वाली फोटो" hidden>
+          </div>
+        </div>
+      </section>
+
+      <div class="result-actions" id="downloadActions" hidden>
+        <a class="btn btn-primary" id="downloadBtn" href="#" download="hmq-background-removed.png">
+          ⬇ PNG डाउनलोड करें
+        </a>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>आसान प्रक्रिया</h3>
+        <p>फोटो चुनें, बैकग्राउंड हटाएँ और अपना परिणाम डाउनलोड करें।</p>
+      </article>
+      <article class="feature">
+        <div class="feature-icon">🧩</div>
+        <h3>Transparent PNG</h3>
+        <p>परिणाम PNG फ़ॉर्मेट में सेव करें, ताकि पारदर्शी बैकग्राउंड बना रहे।</p>
+      </article>
+      <article class="feature">
+        <div class="feature-icon">📱</div>
+        <h3>हर स्क्रीन पर</h3>
+        <p>मोबाइल, टैबलेट और कंप्यूटर पर इस्तेमाल करने के लिए बनाया गया डिज़ाइन।</p>
+      </article>
+    </section>
+
+    <p class="privacy-note">
+      नोट: AI मॉडल पहली बार लोड होने में समय लग सकता है और इंटरनेट आवश्यक है।
+      फोटो प्रोसेसिंग के दौरान आपका ब्राउज़र इस्तेमाल होता है; यह वेबसाइट
+      किसी सर्वर पर फोटो अपलोड करने का कोड नहीं चलाती।
+    </p>
+  </main>
+
+  <footer>
+    © <span id="year"></span> <strong>HMQ Tools</strong> · बनाया गया सीखने और
+    फोटो एडिटिंग के लिए
+  </footer>
 
   <script type="module">
-    const photo = document.getElementById("photo");
-    const button = document.getElementById("remove");
-    const status = document.getElementById("status");
-    const result = document.getElementById("result");
+    const photoInput = document.getElementById("photo");
+    const chooseBtn = document.getElementById("chooseBtn");
+    const removeBtn = document.getElementById("removeBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const dropArea = document.getElementById("dropArea");
+    const statusText = document.getElementById("status");
+    const progressTrack = document.getElementById("progressTrack");
 
-    let outputUrl = null;
+    const originalImage = document.getElementById("originalImage");
+    const originalEmpty = document.getElementById("originalEmpty");
+    const resultImage = document.getElementById("resultImage");
+    const resultEmpty = document.getElementById("resultEmpty");
+    const downloadActions = document.getElementById("downloadActions");
+    const downloadBtn = document.getElementById("downloadBtn");
 
-    button.addEventListener("click", async () => {
-      const file = photo.files[0];
+    let selectedFile = null;
+    let originalUrl = null;
+    let resultUrl = null;
+    let isProcessing = false;
 
-      if (!file) {
-        status.textContent = "पहले फोटो चुनो!";
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function setStatus(message, busy = false) {
+      statusText.textContent = message;
+      progressTrack.style.display = busy ? "block" : "none";
+    }
+
+    function releaseUrl(url) {
+      if (url) URL.revokeObjectURL(url);
+    }
+
+    function clearResult() {
+      releaseUrl(resultUrl);
+      resultUrl = null;
+      resultImage.removeAttribute("src");
+      resultImage.hidden = true;
+      resultEmpty.hidden = false;
+      downloadActions.hidden = true;
+    }
+
+    function showSelectedFile(file) {
+      if (!file) return;
+
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        setStatus("कृपया JPG, PNG या WebP फोटो चुनें।");
         return;
       }
 
-      button.disabled = true;
-      status.textContent = "AI मॉडल लोड हो रहा है...";
-      result.replaceChildren();
+      if (file.size > 15 * 1024 * 1024) {
+        setStatus("फोटो 15 MB से छोटी चुनें।");
+        return;
+      }
+
+      selectedFile = file;
+      releaseUrl(originalUrl);
+      originalUrl = URL.createObjectURL(file);
+
+      originalImage.src = originalUrl;
+      originalImage.hidden = false;
+      originalEmpty.hidden = true;
+
+      clearResult();
+      removeBtn.disabled = false;
+      setStatus("फोटो तैयार है। अब “बैकग्राउंड हटाएँ” दबाएँ।");
+    }
+
+    chooseBtn.addEventListener("click", () => photoInput.click());
+
+    photoInput.addEventListener("change", () => {
+      showSelectedFile(photoInput.files[0]);
+    });
+
+    for (const eventName of ["dragenter", "dragover"]) {
+      dropArea.addEventListener(eventName, event => {
+        event.preventDefault();
+        dropArea.classList.add("dragging");
+      });
+    }
+
+    for (const eventName of ["dragleave", "drop"]) {
+      dropArea.addEventListener(eventName, event => {
+        event.preventDefault();
+        dropArea.classList.remove("dragging");
+      });
+    }
+
+    dropArea.addEventListener("drop", event => {
+      const file = event.dataTransfer.files[0];
+      if (file) showSelectedFile(file);
+    });
+
+    removeBtn.addEventListener("click", async () => {
+      if (!selectedFile || isProcessing) return;
+
+      isProcessing = true;
+      removeBtn.disabled = true;
+      chooseBtn.disabled = true;
+      resetBtn.disabled = true;
+      clearResult();
 
       try {
-        const { removeBackground } =
-          await import("https://esm.sh/@imgly/background-removal@1.5.5");
+        setStatus("AI मॉडल लोड हो रहा है। पहली बार थोड़ा समय लग सकता है...", true);
 
-        status.textContent =
-          "बैकग्राउंड हट रहा है। पहली बार समय लग सकता है...";
+        const { removeBackground } = await import(
+          "https://esm.sh/@imgly/background-removal@1.5.5"
+        );
 
-        const blob = await removeBackground(file);
-        outputUrl = URL.createObjectURL(blob);
+        setStatus("बैकग्राउंड हटाया जा रहा है। कृपया इंतज़ार करें...", true);
 
-        const image = document.createElement("img");
-        image.src = outputUrl;
-        image.alt = "बिना बैकग्राउंड की फोटो";
+        const blob = await removeBackground(selectedFile);
+        resultUrl = URL.createObjectURL(blob);
 
-        const link = document.createElement("a");
-        link.href = outputUrl;
-        link.download = "hmq-background-removed.png";
-        link.textContent = "PNG डाउनलोड करो";
-        link.style.display = "block";
-        link.style.marginTop = "15px";
+        resultImage.src = resultUrl;
+        resultImage.hidden = false;
+        resultEmpty.hidden = true;
 
-        result.append(image, link);
-        status.textContent = "हो गया! अपनी फोटो डाउनलोड करो।";
+        downloadBtn.href = resultUrl;
+        downloadActions.hidden = false;
+
+        setStatus("हो गया! आपकी फोटो तैयार है। PNG डाउनलोड कर सकते हैं।");
       } catch (error) {
-        console.error(error);
-        status.textContent =
-          "लोड नहीं हुआ। इंटरनेट जाँचो और PC पर Live Server से चलाकर दोबारा कोशिश करो।";
+        console.error("Background removal failed:", error);
+        setStatus(
+          "फोटो प्रोसेस नहीं हो पाई। इंटरनेट जाँचें, पेज रीफ़्रेश करें और छोटी फोटो से दोबारा कोशिश करें।"
+        );
       } finally {
-        button.disabled = false;
+        isProcessing = false;
+        removeBtn.disabled = !selectedFile;
+        chooseBtn.disabled = false;
+        resetBtn.disabled = false;
+        progressTrack.style.display = "none";
       }
+    });
+
+    resetBtn.addEventListener("click", () => {
+      if (isProcessing) return;
+
+      selectedFile = null;
+      photoInput.value = "";
+
+      releaseUrl(originalUrl);
+      originalUrl = null;
+      clearResult();
+
+      originalImage.removeAttribute("src");
+      originalImage.hidden = true;
+      originalEmpty.hidden = false;
+
+      removeBtn.disabled = true;
+      setStatus("शुरू करने के लिए पहले फोटो चुनें।");
+    });
+
+    window.addEventListener("beforeunload", () => {
+      releaseUrl(originalUrl);
+      releaseUrl(resultUrl);
     });
   </script>
 </body>
