@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HMQ Background Remover</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f5ff;
+      text-align: center;
+      padding: 25px 12px;
+    }
+    .box {
+      max-width: 500px;
+      margin: auto;
+      padding: 25px;
+      background: white;
+      border-radius: 18px;
+    }
+    h1 { color: #155eef; }
+    input, button {
+      margin: 12px 0;
+      padding: 12px;
+      max-width: 100%;
+    }
+    button {
+      background: #155eef;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    img {
+      max-width: 100%;
+      max-height: 350px;
+      margin-top: 15px;
+    }
+    #status { color: #155eef; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>HMQ Background Remover</h1>
+    <p>फोटो का बैकग्राउंड हटाओ — मुफ्त में!</p>
+
+    <input type="file" id="photo" accept="image/*">
+    <br>
+    <button id="remove">बैकग्राउंड हटाओ</button>
+
+    <p id="status">अपनी फोटो चुनो।</p>
+    <div id="result"></div>
+  </div>
+
+  <script type="module">
+    const photo = document.getElementById("photo");
+    const button = document.getElementById("remove");
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+
+    let outputUrl = null;
+
+    button.addEventListener("click", async () => {
+      const file = photo.files[0];
+
+      if (!file) {
+        status.textContent = "पहले फोटो चुनो!";
+        return;
+      }
+
+      button.disabled = true;
+      status.textContent = "AI मॉडल लोड हो रहा है...";
+      result.replaceChildren();
+
+      try {
+        const { removeBackground } =
+          await import("https://esm.sh/@imgly/background-removal@1.5.5");
+
+        status.textContent =
+          "बैकग्राउंड हट रहा है। पहली बार समय लग सकता है...";
+
+        const blob = await removeBackground(file);
+        outputUrl = URL.createObjectURL(blob);
+
+        const image = document.createElement("img");
+        image.src = outputUrl;
+        image.alt = "बिना बैकग्राउंड की फोटो";
+
+        const link = document.createElement("a");
+        link.href = outputUrl;
+        link.download = "hmq-background-removed.png";
+        link.textContent = "PNG डाउनलोड करो";
+        link.style.display = "block";
+        link.style.marginTop = "15px";
+
+        result.append(image, link);
+        status.textContent = "हो गया! अपनी फोटो डाउनलोड करो।";
+      } catch (error) {
+        console.error(error);
+        status.textContent =
+          "लोड नहीं हुआ। इंटरनेट जाँचो और PC पर Live Server से चलाकर दोबारा कोशिश करो।";
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
